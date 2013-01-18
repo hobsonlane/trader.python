@@ -5,14 +5,18 @@ import json_ascii
 from bitfloor import RAPI
 
 def get_rapi():
-    print 
-    if len(sys.argv) < 3: # awww, it's a heart!
+    if len(sys.argv) < 3: 
         print "Usage: {0} product_id keyfile".format(sys.argv[0])
-        sys.exit(1)
+        #sys.exit(1)
+    if len(sys.argv) > 2:
+        path = sys.argv[2]
+    else:
+        path = os.path.join(os.path.join('/etc','security','bfl.json'))
+    if len(sys.argv) > 1:
+        product_id = sys.argv[1]
+    else:
+        product_id = 1  # BTCUSD
 
-    product_id, keyfile = sys.argv[1:]
-
-    path = os.path.join(os.path.join(os.path.dirname(__file__), '../keys'), keyfile + '.json')
     with open(path) as f:
         config = json.load(f, object_hook=json_ascii.decode_dict)
 
